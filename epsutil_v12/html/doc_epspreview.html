@@ -1,0 +1,203 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>epspreview</title><meta name="generator" content="MATLAB 7.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2012-05-08"><meta name="DC.source" content="doc_epspreview.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+
+  </style></head><body><div class="content"><h1>epspreview</h1><!--introduction--><p>Add/remove TIFF preview to EPS file.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Parameters</a></li><li><a href="#4">See Also</a></li></ul></div><h2>Syntax<a name="1"></a></h2><pre>epspreview(epsfile)
+epspreview(epsfile, outfile)
+epspreview(epsfile, '--Remove')
+epspreview(..., 'Param1', Value1, 'Param2', Value2,...)</pre><h2>Description<a name="2"></a></h2><p><tt>epspreview(epsfile)</tt> adds TIFF preview to the EPS file specified by the string <tt>epsfile</tt>. If '.eps' extension is missing, it will automatically append the extension. The default resolution of the TIFF preview image resolution is 96 dots per inch.</p><p><tt>epspreview(epsfile, outfile)</tt> saves the modified EPS data to a file specified by the string <tt>outfile</tt>.</p><p><tt>epspreview(..., '--Remove')</tt> removes the existing TIFF preview image from the EPS file. All other optional parameters are ignored.</p><p><tt>epspreview(..., 'Param1', Value1, 'Param2', Value2,...)</tt> can be used to set parameters for the TIFF image quality.</p><h2>Parameters<a name="3"></a></h2><p>The following table lists the available optional parameters.</p><p>
+<table cellpadding="4" cellspacing="0" width="100%">
+<thead>
+<tr valign="top">
+<th bgcolor="#B2B2B2" align="left" width=200><p>Option</p></th>
+<th bgcolor="#B2B2B2" align="left"><p>Value</p></th>
+<th bgcolor="#B2B2B2" align="left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>Resolution</tt></p></td>
+<td bgcolor="#F2F2F2"><p>a scalar or 2-element vector of positive integers {<tt>[96]</tt>}</p></td>
+<td bgcolor="#F2F2F2"><p>A two-element vector containing the XResolution and
+     YResolution, or a scalar indicating both resolutions. The units are
+     specified in pixels per inch.</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>TextAlphaBits</tt></p></td>
+<td bgcolor="#F2F2F2"><p><tt>0</tt>, <tt>1</tt>, <tt>2</tt>, <tt>3</tt>, {<tt>4</tt>}</p></td>
+<td bgcolor="#F2F2F2"><p>The number of bits for text antialiasing; The value of
+                  4 should be given for optimum output, but smaller
+                  values can be used for faster rendering.</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>GraphicsAlphaBits</tt></p></td>
+<td bgcolor="#F2F2F2"><p><tt>0</tt>, <tt>1</tt>, <tt>2</tt>, <tt>3</tt>, {<tt>4</tt>}</p></td>
+<td bgcolor="#F2F2F2"><p>The number of bits for graphics antialiasing; The
+                      value of 4 should be given for optimum output, but
+                      smaller values can be used for faster rendering.</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>ColorSpace</tt></p></td>
+<td bgcolor="#F2F2F2"><p>{<tt>'color'</tt>} | <tt>'gray'</tt> | <tt>'mono'</tt></p></td>
+<td bgcolor="#F2F2F2"><p>&nbsp</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>BitDepth</tt></p></td>
+<td bgcolor="#F2F2F2"><p>12, {24}, 32, 48, 64</p></td>
+<td bgcolor="#F2F2F2"><p>Only relevant for <tt>ColorSpace = 'color'</tt>.
+   If <tt>BitDepth = 12</tt>, <tt>24</tt>, or <tt>48</tt>, the image is
+   encoded in RGB space while <tt>BitDepth = 32</tt> or <tt>64</tt>, it
+   results in a CMYK image.</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>Compression</tt></p></td>
+<td bgcolor="#F2F2F2"><p><tt>'none'</tt>, <tt>'crle'</tt>, <tt>'g3'</tt>,
+    <tt>'g4'</tt>, <tt>'lzw'</tt>, {<tt>'pack'</tt>}</p></td>
+<td bgcolor="#F2F2F2"><p>&nbsp</p></td>
+</tr>
+</tbody>
+</table>
+</p><h2>See Also<a name="4"></a></h2><p><a href="doc_epswrite.html"><tt>epswrite</tt></a>, <a href="doc_eps2raster.html"><tt>eps2raster</tt></a>.</p><p>Copyright 2012. Takeshi Ikuma. All rights reserved.</p><p class="footer"><br>
+      Published with MATLAB&reg; 7.14<br></p></div><!--
+##### SOURCE BEGIN #####
+%% epspreview
+% Add/remove TIFF preview to EPS file.
+%
+%% Syntax
+%  epspreview(epsfile)
+%  epspreview(epsfile, outfile)
+%  epspreview(epsfile, 'REPLACE_WITH_DASH_DASHRemove')
+%  epspreview(..., 'Param1', Value1, 'Param2', Value2,...)
+%
+%% Description
+% |epspreview(epsfile)| adds TIFF preview to the EPS file specified by the
+% string |epsfile|. If '.eps' extension is missing, it will automatically
+% append the extension. The default resolution of the TIFF preview image
+% resolution is 96 dots per inch.
+%
+% |epspreview(epsfile, outfile)| saves the modified EPS data to a file
+% specified by the string |outfile|.
+%
+% |epspreview(..., 'REPLACE_WITH_DASH_DASHRemove')| removes the existing TIFF preview image
+% from the EPS file. All other optional parameters are ignored.
+%
+% |epspreview(..., 'Param1', Value1, 'Param2', Value2,...)| can be used to
+% set parameters for the TIFF image quality.
+%
+%% Parameters
+% The following table lists the available optional parameters.
+%
+% <html>
+% <table cellpadding="4" cellspacing="0" width="100%">
+% <thead>
+% <tr valign="top">
+% <th bgcolor="#B2B2B2" align="left" width=200><p>Option</p></th>
+% <th bgcolor="#B2B2B2" align="left"><p>Value</p></th>
+% <th bgcolor="#B2B2B2" align="left"><p>Description</p></th>
+% </tr>
+% </thead>
+% <tbody>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>Resolution</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>a scalar or 2-element vector of positive integers {<tt>[96]</tt>}</p></td>
+% <td bgcolor="#F2F2F2"><p>A two-element vector containing the XResolution and
+%      YResolution, or a scalar indicating both resolutions. The units are
+%      specified in pixels per inch.</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>TextAlphaBits</tt></p></td>
+% <td bgcolor="#F2F2F2"><p><tt>0</tt>, <tt>1</tt>, <tt>2</tt>, <tt>3</tt>, {<tt>4</tt>}</p></td>
+% <td bgcolor="#F2F2F2"><p>The number of bits for text antialiasing; The value of
+%                   4 should be given for optimum output, but smaller
+%                   values can be used for faster rendering.</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>GraphicsAlphaBits</tt></p></td>
+% <td bgcolor="#F2F2F2"><p><tt>0</tt>, <tt>1</tt>, <tt>2</tt>, <tt>3</tt>, {<tt>4</tt>}</p></td>
+% <td bgcolor="#F2F2F2"><p>The number of bits for graphics antialiasing; The
+%                       value of 4 should be given for optimum output, but
+%                       smaller values can be used for faster rendering.</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>ColorSpace</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>{<tt>'color'</tt>} | <tt>'gray'</tt> | <tt>'mono'</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>&nbsp</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>BitDepth</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>12, {24}, 32, 48, 64</p></td>
+% <td bgcolor="#F2F2F2"><p>Only relevant for <tt>ColorSpace = 'color'</tt>. 
+%    If <tt>BitDepth = 12</tt>, <tt>24</tt>, or <tt>48</tt>, the image is
+%    encoded in RGB space while <tt>BitDepth = 32</tt> or <tt>64</tt>, it
+%    results in a CMYK image.</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>Compression</tt></p></td>
+% <td bgcolor="#F2F2F2"><p><tt>'none'</tt>, <tt>'crle'</tt>, <tt>'g3'</tt>,
+%     <tt>'g4'</tt>, <tt>'lzw'</tt>, {<tt>'pack'</tt>}</p></td>
+% <td bgcolor="#F2F2F2"><p>&nbsp</p></td>
+% </tr>
+% </tbody>
+% </table>
+% </html>
+%
+%% See Also
+% <doc_epswrite.html |epswrite|>, <doc_eps2raster.html |eps2raster|>.
+%
+% Copyright 2012. Takeshi Ikuma. All rights reserved.
+
+##### SOURCE END #####
+--></body></html>

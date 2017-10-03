@@ -1,0 +1,475 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>eps2raster</title><meta name="generator" content="MATLAB 7.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2012-05-08"><meta name="DC.source" content="doc_eps2raster.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+
+  </style></head><body><div class="content"><h1>eps2raster</h1><!--introduction--><p>Convert an EPS file to a raster image file</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Common parameters</a></li><li><a href="#4">JPEG-specific parameters</a></li><li><a href="#5">TIFF-specific parameters</a></li><li><a href="#6">PNG-specific parameters</a></li><li><a href="#7">BMP-specific parameters</a></li><li><a href="#8">Example</a></li><li><a href="#9">See Also</a></li></ul></div><h2>Syntax<a name="1"></a></h2><pre>eps2raster(epsfile, filename, fmt)
+eps2raster(epsfile, outfile)
+eps2raster(epsfile, fmt)
+eps2raster(..., 'Param1', Value1, 'Param2', Value2, ...)</pre><h2>Description<a name="2"></a></h2><p><tt>eps2raster</tt> is a wrapper function to external Ghostscript interpreter. In order to use this function, a recent version of Ghostscript (that supports the -dEPSCrop option) must be installed on the computer. And run <tt>epssetup</tt> to specify the interpreter.</p><p><tt>eps2raster(epsfile, filename, fmt)</tt> converts the EPS file specified by <tt>epsfile</tt> to to the file specified by <tt>filename</tt> in the format specified by <tt>fmt</tt>. <tt>filename</tt> is a string that specifies the name of the file. <tt>fmt</tt> is a string specifying the format of the file. See the table below for the supported image formats.</p><p>
+<table cellpadding="4" cellspacing="5">
+<thead>
+<tr valign="top">
+  <th bgcolor="#B2B2B2" align="left"><p>Supported Graphics Format</p></th>
+  <th bgcolor="#B2B2B2" align="left" width=150><p><tt>fmt</tt> String</p></th>
+  <th bgcolor="#B2B2B2" align="left"><p>File Extensions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr valign="top">
+  <td bgcolor="#F2F2F2"><p>Joint Photographic Experts Group</p></td>
+  <td bgcolor="#F2F2F2"><p><tt>JPEG</tt></p></td>
+  <td bgcolor="#F2F2F2"><p>.jpg, .jpeg</p></td>
+</tr>
+<tr valign="top">
+  <td bgcolor="#F2F2F2"><p>Tagged Image File Format</p></td>
+  <td bgcolor="#F2F2F2"><p><tt>TIFF</tt></p></td>
+  <td bgcolor="#F2F2F2"><p>.tif, .tiff</p></td>
+</tr>
+<tr valign="top">
+  <td bgcolor="#F2F2F2"><p>Portable Network Graphics</p></td>
+  <td bgcolor="#F2F2F2"><p><tt>PNG</tt></p></td>
+  <td bgcolor="#F2F2F2"><p>.png</p></td>
+</tr>
+<tr valign="top">
+  <td bgcolor="#F2F2F2"><p>Windows Bitmat</p></td>
+  <td bgcolor="#F2F2F2"><p><tt>BMP</tt></p></td>
+  <td bgcolor="#F2F2F2"><p>.bmp</p></td>
+</tr>
+</tbody>
+</table>
+</p><p><tt>eps2raster(epsfile, filename)</tt> outputs to <tt>filename</tt>, inferring the format to use from the filename's extension. The file extension must match one of the expected extensions listed in the table above.</p><p><tt>eps2raster(epsfile, fmt)</tt> outputs to a file with the same file name as the <tt>epsfile</tt> but with the file extension for the format specified by <tt>fmt</tt>.</p><p><tt>eps2raster(..., 'Param1', Value1, 'Param2', Value2,...)</tt> specifies parameters that control various characteristics of the output file. Any unspecified parameters are set to use the default value for that parameter. There are two types of parameters: common and format-specific. See the following sections for each type of parameters.</p><h2>Common parameters<a name="3"></a></h2><p>The following table lists the available parameters for all image formats.</p><p>
+<table cellpadding="4" cellspacing="0" width="100%">
+<thead>
+<tr valign="top">
+<th bgcolor="#B2B2B2" align="left" width=180><p>Option</p></th>
+<th bgcolor="#B2B2B2" align="left"><p>Value</p></th>
+<th bgcolor="#B2B2B2" align="left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>Resolution</tt></p></td>
+<td bgcolor="#F2F2F2"><p>positive numeric vector {<tt>[300]</tt>}</p></td>
+<td bgcolor="#F2F2F2"><p>A two-element vector containing the XResolution and
+                 YResolution, or a scalar indicating both resolutions;
+                 the default value is 300. The units are in pixels per
+                 inch.</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>Size</tt></p></td>
+<td bgcolor="#F2F2F2"><p>one- or two-element vector of nonnegative integers</p></td>
+<td bgcolor="#F2F2F2"><p><tt>[Width Height]</tt> of the image size in
+                 number of pixels. To keep the aspect ratio of the
+                 bounding box, use <tt>0</tt> for the dimension to be auto-
+                 adjusted. Alternatively, a scaler scaling factor can be
+                 specified.</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>TextAlphaBits</tt></p></td>
+<td bgcolor="#F2F2F2"><p><tt>0</tt>, <tt>1</tt>, <tt>2</tt>, <tt>3</tt>, {<tt>4</tt>}</p></td>
+<td bgcolor="#F2F2F2"><p>The number of bits for text antialiasing; The value of
+                  4 should be given for optimum output, but smaller
+                  values can be used for faster rendering.</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>GraphicsAlphaBits</tt></p></td>
+<td bgcolor="#F2F2F2"><p><tt>0</tt>, <tt>1</tt>, <tt>2</tt>, <tt>3</tt>, {<tt>4</tt>}</p></td>
+<td bgcolor="#F2F2F2"><p>The number of bits for graphics antialiasing; The
+                      value of 4 should be given for optimum output, but
+                      smaller values can be used for faster rendering.</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>EmbedICCProfile</tt></p></td>
+<td bgcolor="#F2F2F2"><p><tt>'on'</tt>|{<tt>'off'</tt>}</p></td>
+<td bgcolor="#F2F2F2"><p>Embed ICC color profile to the output
+                    file.</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>DeleteSource</tt></p></td>
+<td bgcolor="#F2F2F2"><p><tt>'on'</tt>|{<tt>'off'</tt>}</p></td>
+<td bgcolor="#F2F2F2"><p>Delete source EPS file upon
+                    successful creation of the output file.</p></td>
+</tr>
+</tbody>
+</table>
+</p><h2>JPEG-specific parameters<a name="4"></a></h2><p>The following table lists the parameters specific to JPEG format.</p><p>
+<table cellpadding="4" cellspacing="0" width="100%">
+<thead>
+<tr valign="top">
+<th bgcolor="#B2B2B2" align="left" width=180><p>Option</p></th>
+<th bgcolor="#B2B2B2" align="left"><p>Value</p></th>
+<th bgcolor="#B2B2B2" align="left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>ColorSpace</tt></p></td>
+<td bgcolor="#F2F2F2"><p>{<tt>'color'</tt>} | <tt>'gray'</tt></p></td>
+<td bgcolor="#F2F2F2"><p>&nbsp</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>Quality</tt></p></td>
+<td bgcolor="#F2F2F2"><p>an integer between <tt.0</tt> and <tt>100</tt>. <tt>[75]</tt></p></td>
+<td bgcolor="#F2F2F2"><p>Image quality factor: higher numbers
+                 mean quality is better (less image degradation
+                 due to compression), but the resulting file
+                 size is larger.</p></td>
+</tr>
+</tbody>
+</table>
+</p><h2>TIFF-specific parameters<a name="5"></a></h2><p>The following table lists the parameters specific to TIFF format.</p><p>
+<table cellpadding="4" cellspacing="0" width="100%">
+<thead>
+<tr valign="top">
+<th bgcolor="#B2B2B2" align="left" width=180><p>Option</p></th>
+<th bgcolor="#B2B2B2" align="left"><p>Value</p></th>
+<th bgcolor="#B2B2B2" align="left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>ColorSpace</tt></p></td>
+<td bgcolor="#F2F2F2"><p>{<tt>'color'</tt>} | <tt>'gray'</tt> | <tt>'mono'</tt></p></td>
+<td bgcolor="#F2F2F2"><p>&nbsp</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>BitDepth</tt></p></td>
+<td bgcolor="#F2F2F2"><p>12, {24}, 32, 48, 64</p></td>
+<td bgcolor="#F2F2F2"><p>Only relevant for <tt>ColorSpace = 'color'</tt>.
+   If <tt>BitDepth = 12</tt>, <tt>24</tt>, or <tt>48</tt>, the image is
+   encoded in RGB space while <tt>BitDepth = 32</tt> or <tt>64</tt>, it
+   results in a CMYK image.</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>Compression</tt></p></td>
+<td bgcolor="#F2F2F2"><p><tt>'none'</tt>, <tt>'crle'</tt>, <tt>'g3'</tt>,
+    <tt>'g4'</tt>, <tt>'lzw'</tt>, {<tt>'pack'</tt>}</p></td>
+<td bgcolor="#F2F2F2"><p>&nbsp</p></td>
+</tr>
+</tbody>
+</table>
+</p><h2>PNG-specific parameters<a name="6"></a></h2><p>The following table lists the parameters specific to JPEG format.</p><p>
+<table cellpadding="4" cellspacing="0" width="100%">
+<thead>
+<tr valign="top">
+<th bgcolor="#B2B2B2" align="left" width=180><p>Option</p></th>
+<th bgcolor="#B2B2B2" align="left"><p>Value</p></th>
+<th bgcolor="#B2B2B2" align="left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>ColorSpace</tt></p></td>
+<td bgcolor="#F2F2F2"><p>{<tt>'color'</tt>} | <tt>'gray'</tt> | <tt>'mono'</tt></p></td>
+<td bgcolor="#F2F2F2"><p>&nbsp</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>BitDepth</tt></p></td>
+<td bgcolor="#F2F2F2"><p>4, 8, or {24}</p></td>
+<td bgcolor="#F2F2F2"><p>Only relevant for <tt>ColorSpace = 'color'</tt>.</p></td>
+</tr>
+<tr valign="top">
+<td bgcolor="#F2F2F2"><p><tt>Transparency</tt></p></td>
+<td bgcolor="#F2F2F2"><p><tt>'on'</tt> or {<tt>'off'</tt>}</p></td>
+<td bgcolor="#F2F2F2"><p>Applicable only if <tt>ColorSpace = 'color'</tt> and
+                 forces <tt>BitDepth = 24</tt>.</p></td>
+</tr>
+</tbody>
+</table>
+</p><h2>BMP-specific parameters<a name="7"></a></h2><p>There are no BMP specific parameters.</p><h2>Example<a name="8"></a></h2><h2>See Also<a name="9"></a></h2><p><a href="doc_epswrite.html"><tt>epswrite</tt></a>.</p><p>Copyright 2012. Takeshi Ikuma. All rights reserved.</p><p class="footer"><br>
+      Published with MATLAB&reg; 7.14<br></p></div><!--
+##### SOURCE BEGIN #####
+%% eps2raster
+% Convert an EPS file to a raster image file
+%
+%% Syntax
+%  eps2raster(epsfile, filename, fmt)
+%  eps2raster(epsfile, outfile)
+%  eps2raster(epsfile, fmt)
+%  eps2raster(..., 'Param1', Value1, 'Param2', Value2, ...)
+%
+%% Description
+% |eps2raster| is a wrapper function to external Ghostscript interpreter.
+% In order to use this function, a recent version of Ghostscript (that
+% supports the -dEPSCrop option) must be installed on the computer. And
+% run |epssetup| to specify the interpreter.
+%
+% |eps2raster(epsfile, filename, fmt)| converts the EPS file specified by
+% |epsfile| to to the file specified by |filename| in the format specified
+% by |fmt|. |filename| is a string that specifies the name of the file.
+% |fmt| is a string specifying the format of the file. See the table below
+% for the supported image formats.
+%
+% <html>
+% <table cellpadding="4" cellspacing="5">
+% <thead>
+% <tr valign="top">
+%   <th bgcolor="#B2B2B2" align="left"><p>Supported Graphics Format</p></th>
+%   <th bgcolor="#B2B2B2" align="left" width=150><p><tt>fmt</tt> String</p></th>
+%   <th bgcolor="#B2B2B2" align="left"><p>File Extensions</p></th>
+% </tr>
+% </thead>
+% <tbody>
+% <tr valign="top">
+%   <td bgcolor="#F2F2F2"><p>Joint Photographic Experts Group</p></td>
+%   <td bgcolor="#F2F2F2"><p><tt>JPEG</tt></p></td>
+%   <td bgcolor="#F2F2F2"><p>.jpg, .jpeg</p></td>
+% </tr>
+% <tr valign="top">
+%   <td bgcolor="#F2F2F2"><p>Tagged Image File Format</p></td>
+%   <td bgcolor="#F2F2F2"><p><tt>TIFF</tt></p></td>
+%   <td bgcolor="#F2F2F2"><p>.tif, .tiff</p></td>
+% </tr>
+% <tr valign="top">
+%   <td bgcolor="#F2F2F2"><p>Portable Network Graphics</p></td>
+%   <td bgcolor="#F2F2F2"><p><tt>PNG</tt></p></td>
+%   <td bgcolor="#F2F2F2"><p>.png</p></td>
+% </tr>
+% <tr valign="top">
+%   <td bgcolor="#F2F2F2"><p>Windows Bitmat</p></td>
+%   <td bgcolor="#F2F2F2"><p><tt>BMP</tt></p></td>
+%   <td bgcolor="#F2F2F2"><p>.bmp</p></td>
+% </tr>
+% </tbody>
+% </table>
+% </html>
+%
+% |eps2raster(epsfile, filename)| outputs to |filename|, inferring the
+% format to use from the filename's extension. The file extension must
+% match one of the expected extensions listed in the table above.
+%
+% |eps2raster(epsfile, fmt)| outputs to a file with the same file name as
+% the |epsfile| but with the file extension for the format specified by
+% |fmt|.
+%
+% |eps2raster(..., 'Param1', Value1, 'Param2', Value2,...)| specifies parameters
+% that control various characteristics of the output file. Any unspecified
+% parameters are set to use the default value for that parameter. There are
+% two types of parameters: common and format-specific. See the following
+% sections for each type of parameters.
+%
+%% Common parameters
+% The following table lists the available parameters for all image formats.
+%
+% <html>
+% <table cellpadding="4" cellspacing="0" width="100%">
+% <thead>
+% <tr valign="top">
+% <th bgcolor="#B2B2B2" align="left" width=180><p>Option</p></th>
+% <th bgcolor="#B2B2B2" align="left"><p>Value</p></th>
+% <th bgcolor="#B2B2B2" align="left"><p>Description</p></th>
+% </tr>
+% </thead>
+% <tbody>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>Resolution</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>positive numeric vector {<tt>[300]</tt>}</p></td>
+% <td bgcolor="#F2F2F2"><p>A two-element vector containing the XResolution and
+%                  YResolution, or a scalar indicating both resolutions;
+%                  the default value is 300. The units are in pixels per
+%                  inch.</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>Size</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>one- or two-element vector of nonnegative integers</p></td>
+% <td bgcolor="#F2F2F2"><p><tt>[Width Height]</tt> of the image size in
+%                  number of pixels. To keep the aspect ratio of the
+%                  bounding box, use <tt>0</tt> for the dimension to be auto-
+%                  adjusted. Alternatively, a scaler scaling factor can be
+%                  specified.</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>TextAlphaBits</tt></p></td>
+% <td bgcolor="#F2F2F2"><p><tt>0</tt>, <tt>1</tt>, <tt>2</tt>, <tt>3</tt>, {<tt>4</tt>}</p></td>
+% <td bgcolor="#F2F2F2"><p>The number of bits for text antialiasing; The value of
+%                   4 should be given for optimum output, but smaller
+%                   values can be used for faster rendering.</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>GraphicsAlphaBits</tt></p></td>
+% <td bgcolor="#F2F2F2"><p><tt>0</tt>, <tt>1</tt>, <tt>2</tt>, <tt>3</tt>, {<tt>4</tt>}</p></td>
+% <td bgcolor="#F2F2F2"><p>The number of bits for graphics antialiasing; The
+%                       value of 4 should be given for optimum output, but
+%                       smaller values can be used for faster rendering.</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>EmbedICCProfile</tt></p></td>
+% <td bgcolor="#F2F2F2"><p><tt>'on'</tt>|{<tt>'off'</tt>}</p></td>
+% <td bgcolor="#F2F2F2"><p>Embed ICC color profile to the output
+%                     file.</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>DeleteSource</tt></p></td>
+% <td bgcolor="#F2F2F2"><p><tt>'on'</tt>|{<tt>'off'</tt>}</p></td>
+% <td bgcolor="#F2F2F2"><p>Delete source EPS file upon
+%                     successful creation of the output file.</p></td>
+% </tr>
+% </tbody>
+% </table>
+% </html>
+%
+%% JPEG-specific parameters
+% The following table lists the parameters specific to JPEG format.
+%
+% <html>
+% <table cellpadding="4" cellspacing="0" width="100%">
+% <thead>
+% <tr valign="top">
+% <th bgcolor="#B2B2B2" align="left" width=180><p>Option</p></th>
+% <th bgcolor="#B2B2B2" align="left"><p>Value</p></th>
+% <th bgcolor="#B2B2B2" align="left"><p>Description</p></th>
+% </tr>
+% </thead>
+% <tbody>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>ColorSpace</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>{<tt>'color'</tt>} | <tt>'gray'</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>&nbsp</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>Quality</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>an integer between <tt.0</tt> and <tt>100</tt>. <tt>[75]</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>Image quality factor: higher numbers
+%                  mean quality is better (less image degradation
+%                  due to compression), but the resulting file
+%                  size is larger.</p></td>
+% </tr>
+% </tbody>
+% </table>
+% </html>
+%
+%% TIFF-specific parameters
+% The following table lists the parameters specific to TIFF format.
+%
+% <html>
+% <table cellpadding="4" cellspacing="0" width="100%">
+% <thead>
+% <tr valign="top">
+% <th bgcolor="#B2B2B2" align="left" width=180><p>Option</p></th>
+% <th bgcolor="#B2B2B2" align="left"><p>Value</p></th>
+% <th bgcolor="#B2B2B2" align="left"><p>Description</p></th>
+% </tr>
+% </thead>
+% <tbody>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>ColorSpace</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>{<tt>'color'</tt>} | <tt>'gray'</tt> | <tt>'mono'</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>&nbsp</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>BitDepth</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>12, {24}, 32, 48, 64</p></td>
+% <td bgcolor="#F2F2F2"><p>Only relevant for <tt>ColorSpace = 'color'</tt>. 
+%    If <tt>BitDepth = 12</tt>, <tt>24</tt>, or <tt>48</tt>, the image is
+%    encoded in RGB space while <tt>BitDepth = 32</tt> or <tt>64</tt>, it
+%    results in a CMYK image.</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>Compression</tt></p></td>
+% <td bgcolor="#F2F2F2"><p><tt>'none'</tt>, <tt>'crle'</tt>, <tt>'g3'</tt>,
+%     <tt>'g4'</tt>, <tt>'lzw'</tt>, {<tt>'pack'</tt>}</p></td>
+% <td bgcolor="#F2F2F2"><p>&nbsp</p></td>
+% </tr>
+% </tbody>
+% </table>
+% </html>
+%
+%% PNG-specific parameters
+% The following table lists the parameters specific to JPEG format.
+%
+% <html>
+% <table cellpadding="4" cellspacing="0" width="100%">
+% <thead>
+% <tr valign="top">
+% <th bgcolor="#B2B2B2" align="left" width=180><p>Option</p></th>
+% <th bgcolor="#B2B2B2" align="left"><p>Value</p></th>
+% <th bgcolor="#B2B2B2" align="left"><p>Description</p></th>
+% </tr>
+% </thead>
+% <tbody>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>ColorSpace</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>{<tt>'color'</tt>} | <tt>'gray'</tt> | <tt>'mono'</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>&nbsp</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>BitDepth</tt></p></td>
+% <td bgcolor="#F2F2F2"><p>4, 8, or {24}</p></td>
+% <td bgcolor="#F2F2F2"><p>Only relevant for <tt>ColorSpace = 'color'</tt>.</p></td>
+% </tr>
+% <tr valign="top">
+% <td bgcolor="#F2F2F2"><p><tt>Transparency</tt></p></td>
+% <td bgcolor="#F2F2F2"><p><tt>'on'</tt> or {<tt>'off'</tt>}</p></td>
+% <td bgcolor="#F2F2F2"><p>Applicable only if <tt>ColorSpace = 'color'</tt> and
+%                  forces <tt>BitDepth = 24</tt>.</p></td>
+% </tr>
+% </tbody>
+% </table>
+% </html>
+%
+%% BMP-specific parameters
+% There are no BMP specific parameters.
+%
+%% Example
+%
+%
+%% See Also
+% <doc_epswrite.html |epswrite|>.
+%
+% Copyright 2012. Takeshi Ikuma. All rights reserved.
+
+##### SOURCE END #####
+--></body></html>
